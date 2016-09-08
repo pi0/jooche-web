@@ -1,0 +1,9 @@
+version: '2'
+services:
+  www:
+    image: pooya/paas
+    volumes:
+      - .:/var/www/src
+    env_file: .env.docker
+    network_mode: "bridge"
+    restart: always
