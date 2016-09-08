@@ -12,7 +12,7 @@ return [
     | any other location as required by the application or its packages.
     */
 
-    'name' => 'My Application',
+    'name' => 'Jooche Application',
 
     /*
     |--------------------------------------------------------------------------
@@ -51,7 +51,7 @@ return [
     |
     */
 
-    'url' => env('APP_URL', 'http://localhost'),
+    'url' => env('APP_URL', 'http://jooche.ir'),
 
     /*
     |--------------------------------------------------------------------------
@@ -178,6 +178,21 @@ return [
         App\Providers\EventServiceProvider::class,
         App\Providers\RouteServiceProvider::class,
 
+
+        /* Sentry */
+        Sentry\SentryLaravel\SentryLaravelServiceProvider::class,
+
+
+        /* IDE Helper */
+        Barryvdh\LaravelIdeHelper\IdeHelperServiceProvider::class,
+
+        /* Mongodb */
+        Moloquent\MongodbServiceProvider::class,
+        Moloquent\Auth\PasswordResetServiceProvider::class,
+
+
+
+
     ],
 
     /*
@@ -224,6 +239,8 @@ return [
         'URL' => Illuminate\Support\Facades\URL::class,
         'Validator' => Illuminate\Support\Facades\Validator::class,
         'View' => Illuminate\Support\Facades\View::class,
+
+        'Sentry' => Sentry\SentryLaravel\SentryFacade::class,
 
     ],
 

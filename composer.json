@@ -11,7 +11,13 @@
   "prefer-stable": true,
   "require": {
     "php": ">=5.6.4",
-    "laravel/framework": "5.3.*"
+    "laravel/framework": "5.3.*",
+    "morilog/jalali": "^2.2",
+    "firebase/php-jwt": "^4.0",
+    "sentry/sentry-laravel": "^0.3.0",
+    "barryvdh/laravel-ide-helper": "^2.2",
+    "moloquent/moloquent": "dev-master",
+    "laravel/passport":"^1.0.0"
   },
   "require-dev": {
     "fzaninotto/faker": "~1.4",
