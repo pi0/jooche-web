@@ -5,7 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use Route;
 
-class ApiController extends Controller
+class APIController extends Controller
 {
 
     public function __construct()
