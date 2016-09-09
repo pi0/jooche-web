@@ -49,7 +49,6 @@ class Topic extends Model
         $path='storage/topic/' . $this->id. '.jpg';
         if(!file_exists($path))
             return url('/img/default.png');
-
         return url($path).'?'.filemtime($path);
     }
 

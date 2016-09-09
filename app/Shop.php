@@ -43,7 +43,10 @@ class Shop extends Model
 
     public function getImageAttribute()
     {
-        return url('storage/shop/' . $this->id . '.jpg');
+        $path='storage/shop/' . $this->id. '.jpg';
+        if(!file_exists($path))
+            return url('/img/default.png');
+        return url($path).'?'.filemtime($path);
     }
 
 }

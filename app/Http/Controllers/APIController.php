@@ -62,10 +62,12 @@ class APIController extends Controller
 
     public function offers($type)
     {
+        /** @var User $user */
+        $user = Auth::user();
 
-        // TODO: Get Offers Based On User::wishes
-        // OR
-        // TODO: Get Offers Based On User::interests
+        foreach ($user->interests as $interest){
+
+        }
 
         return Shop::all();
     }

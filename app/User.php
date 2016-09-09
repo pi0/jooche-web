@@ -12,7 +12,12 @@ use Illuminate\Foundation\Auth\Access\Authorizable;
 use Illuminate\Notifications\Notifiable;
 use Moloquent\Eloquent\Model as Model;
 
-
+/***
+ * Class User
+ * @package App
+ *
+ * @property Intereset interests
+ */
 class User extends Model implements
     AuthenticatableContract,
     AuthorizableContract,
@@ -39,7 +44,7 @@ class User extends Model implements
     ];
 
 
-    public function interests() {
+    public function topics() {
         return $this->hasMany('App\Interest');
     }
 
