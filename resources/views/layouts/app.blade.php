@@ -12,6 +12,7 @@
 
     <!-- Styles -->
     <link href="/css/app.css" rel="stylesheet">
+    <link href="/tagsinput/bootstrap-tagsinput.css" rel="stylesheet">
 
     <!-- Scripts -->
     <script>
@@ -80,6 +81,7 @@
     @yield('content')
 
     <script src="/js/app.js"></script>
+    <script src="/tagsinput/bootstrap-tagsinput.min.js"></script>
     @stack('scripts')
 
 </body>

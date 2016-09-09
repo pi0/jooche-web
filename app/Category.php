@@ -13,6 +13,11 @@ use Illuminate\Notifications\Notifiable;
 use Moloquent\Eloquent\Builder;
 use Moloquent\Eloquent\Model as Model;
 
+/**
+ * @property mixed name
+ * @property string topic
+ * @property mixed tags
+ */
 class Category extends Model
 {
     // --------------------------------------------------------------
@@ -38,5 +43,8 @@ class Category extends Model
     // Attributes
     // --------------------------------------------------------------
 
+    public function getTagsAttribute($tags) {
+        return join(' ',$tags);
+    }
 
 }

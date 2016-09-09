@@ -13,6 +13,9 @@ use Illuminate\Notifications\Notifiable;
 use Moloquent\Eloquent\Builder;
 use Moloquent\Eloquent\Model as Model;
 
+/**
+ * @property string name
+ */
 class Interest extends Model
 {
     // --------------------------------------------------------------
