@@ -19,6 +19,7 @@
                     <img class="img-responsive" v-bind:src="item.image" style="max-width: 100px;display: inline">
                     <input type="file" @change="save(item,this)" style="display: none" id="@{{'img_'+item._id}}">
                 </label>
+                <span class="label label-info">@{{ item._id }}</span>
             </td>
             <td>
                 <input v-model="item.name" @change="save(item)" class="form-control">
