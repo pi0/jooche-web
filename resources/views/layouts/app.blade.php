@@ -14,6 +14,8 @@
     <link href="/css/app.css" rel="stylesheet">
     <link href="/tagsinput/bootstrap-tagsinput.css" rel="stylesheet">
 
+    @stack('styles')
+
     <!-- Scripts -->
     <script>
         window.Laravel = <?php echo json_encode([

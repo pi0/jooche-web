@@ -63,7 +63,13 @@ class SiteController extends Controller
 
     public function overview()
     {
-        return view('dashboard.overview');
+        $topics=Topic::all();
+        $chart=[];
+        foreach ($topics as $topic){
+            $chart[$topic->name]=$topic->categories->count();
+        }
+
+        return view('dashboard.overview',compact('chart'));
     }
 
     // --------------------------------------------------------------
@@ -97,7 +103,7 @@ class SiteController extends Controller
         $topic->name=$this->request->name;
         $topic->save();
 
-        $img = Image::make($this->request->image)->resize(256,256);
+        $img = Image::make($this->request->image);
         $img->save('storage/topic/'.$topic->id.'.jpg');
     }
 
@@ -136,7 +142,7 @@ class SiteController extends Controller
         $category->tags=explode(' ',$this->request->tags);
         $category->save();
 
-        $img = Image::make($this->request->image)->resize(256,256);
+        $img = Image::make($this->request->image);
         $img->save('storage/category/'.$category->id.'.jpg');
     }
 

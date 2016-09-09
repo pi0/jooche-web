@@ -36,7 +36,7 @@ class Topic extends Model
     // Relations
     // --------------------------------------------------------------
 
-    public function Categories() {
+    public function categories() {
         return $this->hasMany('App\Category');
     }
 
