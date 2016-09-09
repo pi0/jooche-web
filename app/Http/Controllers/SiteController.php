@@ -3,9 +3,10 @@
 namespace App\Http\Controllers;
 
 use App\Category;
-use App\Interest;
+use App\Topic;
 use Illuminate\Http\Request;
 use Intervention\Image\Facades\Image;
+use MongoDB\BSON\ObjectID;
 use Route;
 
 class SiteController extends Controller
@@ -33,11 +34,11 @@ class SiteController extends Controller
         // Overview
         Route::get('/dashboard', 'SiteController@overview')->name('dashboard.overview');
 
-        // interests
-        Route::get('/dashboard/interests', 'SiteController@interests')->name('dashboard.interests');
-        Route::put('/dashboard/interests', 'SiteController@interestsPut');
-        Route::delete('/dashboard/interests/{interest}', 'SiteController@interestsDelete');
-        Route::post('/dashboard/interests/{interest}', 'SiteController@interestsPost');
+        // topics
+        Route::get('/dashboard/topics', 'SiteController@topics')->name('dashboard.topics');
+        Route::put('/dashboard/topics', 'SiteController@topicsPut');
+        Route::delete('/dashboard/topics/{topic}', 'SiteController@topicsDelete');
+        Route::post('/dashboard/topics/{topic}', 'SiteController@topicsPost');
 
         // categories
         Route::get('/dashboard/categories', 'SiteController@categories')->name('dashboard.categories');
@@ -69,35 +70,35 @@ class SiteController extends Controller
     // Dashboard::Interests
     // --------------------------------------------------------------
 
-    public function interests()
+    public function topics()
     {
         if ($this->request->wantsJson()) {
-            $interests = Interest::all();
-            return $interests;
+            $topics = Topic::all();
+            return $topics;
         }
 
-        return view('dashboard.interests');
+        return view('dashboard.topics');
     }
 
-    public function interestsPut()
+    public function topicsPut()
     {
-        $interest = new Interest();
-        $interest->name = 'بدون عنوان';
-        $interest->save();
+        $topic = new Topic();
+        $topic->name = 'بدون عنوان';
+        $topic->save();
     }
 
-    public function interestsDelete(Interest $interest)
+    public function topicsDelete(Topic $topic)
     {
-        $interest->delete();
+        $topic->delete();
     }
 
-    public function interestsPost(Interest $interest)
+    public function topicsPost(Topic $topic)
     {
-        $interest->name=$this->request->name;
-        $interest->save();
+        $topic->name=$this->request->name;
+        $topic->save();
 
         $img = Image::make($this->request->image);
-        $img->save('storage/interest/'.$interest->id.'.png');
+        $img->save('storage/topic/'.$topic->id.'.png');
     }
 
 
@@ -119,8 +120,7 @@ class SiteController extends Controller
     public function categoriesPut()
     {
         $category=new Category();
-        $category->name = 'بدون عنوان';
-        $category->topic='پیش فرض';
+        $category->name = 'عنوان دسته بندی';
         $category->save();
     }
 
@@ -132,7 +132,7 @@ class SiteController extends Controller
     public function categoriesPost(Category $category)
     {
         $category->name=$this->request->name;
-        $category->topic=$this->request->topic;
+        $category->topic_id=new ObjectId($this->request->topic_id);
         $category->tags=explode(' ',$this->request->tags);
         $category->save();
 

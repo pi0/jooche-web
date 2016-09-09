@@ -1,7 +1,7 @@
 @extends('layouts.dashboard')
 
 @section('title')
-    Interests
+    Topics
 @endsection
 
 @section('body')
@@ -11,7 +11,7 @@
             <th>Name</th>
             <th>Actions</th>
         </tr>
-        <tr v-for="item in interests">
+        <tr v-for="item in topics">
             <td>
                 <label class="">
                     <img class="img-responsive" v-bind:src="item.image" style="max-width: 100px;display: inline">
@@ -34,12 +34,12 @@
 
 <script>
 
-    var url = '/dashboard/interests';
+    var url = '/dashboard/topics';
     var app = new Vue({
 
         el: 'body',
         data: {
-            interests: [],
+            topics: [],
         },
         methods: {
             add: function () {
@@ -54,7 +54,7 @@
             },
             reload: function () {
                 this.$http.get(url).then(function (r) {
-                    this.interests = r.json();
+                    this.topics = r.json();
                 });
             },
             save: function (item) {

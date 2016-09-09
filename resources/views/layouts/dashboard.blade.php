@@ -2,7 +2,7 @@
 
 @push('nav')
 <li><a href="{{ route('dashboard.overview') }}">Overview</a></li>
-<li><a href="{{ route('dashboard.interests') }}">Interests</a></li>
+<li><a href="{{ route('dashboard.topics') }}">Topics</a></li>
 <li><a href="{{ route('dashboard.categories') }}">Categories</a></li>
 @endpush
 

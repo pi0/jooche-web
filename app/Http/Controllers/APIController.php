@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Category;
 use App\Interest;
 use App\Shop;
+use App\Topic;
 use App\User;
 use Auth;
 use Hash;
@@ -20,7 +21,7 @@ class APIController extends Controller
 
     public function __construct(Request $request)
     {
-        $this->middleware('auth:api', ['except' => ['auth']]);
+        //$this->middleware('auth:api', ['except' => ['auth']]);
         $this->request = $request;
     }
 
@@ -33,15 +34,15 @@ class APIController extends Controller
         // Offers
         Route::get('offer/{type}', 'ApiController@offers');
 
-        // Interests
-        Route::get('interests', 'ApiController@interests');
-        Route::post('interests', 'ApiController@interestsPost');
+        // Topics
+        Route::get('topics', 'ApiController@topics');
+        Route::post('topics', 'ApiController@topicsPost');
 
         // Wishes
         Route::post('wish', 'ApiController@wishPost');
 
         // Categories
-        Route::get('categories', 'ApiController@categories');
+        Route::get('categories/{topic}', 'ApiController@categories');
 
         // Location
         Route::get('location/set/{sat}/{long}', 'ApiController@locationSet');
@@ -73,11 +74,12 @@ class APIController extends Controller
     // Interests
     // --------------------------------------------------------------
 
-    public function interests()
+    public function topics()
     {
-        $interests= Interest::all();
+        $interests= Topic::all();
         $user = Auth::user();
-        $ids=$user->interest_ids?:[];
+        //$ids=$user->topic_ids?:[];
+        $ids=[];
         foreach ($interests as &$interest){
             $interest['enabled']=in_array($interest->id,$ids);
         }
@@ -91,20 +93,20 @@ class APIController extends Controller
 
         $push=$this->request->json('push',[]);
         foreach ($push as $id)
-            $user->push('interest_ids',$push,true);
+            $user->push('topic_ids',$push,true);
 
         $pull=$this->request->json('pull',[]);
         foreach ($pull as $id)
-            $user->pull('interest_ids',$pull);
+            $user->pull('topic_ids',$pull);
     }
 
     // --------------------------------------------------------------
     // Categories
     // --------------------------------------------------------------
 
-    public function categories()
+    public function categories(Topic $topic)
     {
-        return Category::all();
+        return $topic->categories;
     }
 
 

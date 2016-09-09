@@ -17,6 +17,7 @@ use Moloquent\Eloquent\Model as Model;
  * @property mixed name
  * @property string topic
  * @property mixed tags
+ * @property ObjectID topic_id
  */
 class Category extends Model
 {

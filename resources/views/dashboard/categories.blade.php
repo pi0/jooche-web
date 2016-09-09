@@ -25,19 +25,10 @@
                 <input v-model="item.name" @change="save(item)" class="form-control">
             </td>
             <td>
-                <select v-model="item.topic" @change="save(item)" class="form-control">
-                <option>موبایل و تبلت</option>
-                <option>لپ‌تاپ، کامپیوتر، اداری</option>
-                <option>صوتی و تصویری</option>
-                <option>لوازم خانگی</option>
-                <option>زیبایی و بهداشت</option>
-                <option>سلامت و پزشکی</option>
-                <option>فرهنگی هنری</option>
-                <option>پوشاک، کیف و کفش</option>
-                <option>کودک و نوزاد</option>
-                <option>ابزار و ساختمان</option>
-                <option>خودرو و سفر</option>
-                <option>سوپر مارکت</option>
+                <select v-model="item.topic_id" @change="save(item)" class="form-control">
+                @foreach(\App\Topic::all() as $topic)
+                        <option value="{{$topic->id}}">{{$topic->name}}</option>
+                @endforeach
                 </select>
             </td>
             <td>
@@ -80,7 +71,7 @@
                 });
             },
             save: function (item) {
-                var _this=this;
+                var _this = this;
                 var post = function () {
                     _this.$http.post(url + '/' + item._id, item).then(function (r) {
                         _this.reload();

@@ -16,7 +16,7 @@ use Moloquent\Eloquent\Model as Model;
 /**
  * @property string name
  */
-class Interest extends Model
+class Topic extends Model
 {
     // --------------------------------------------------------------
     // Properties
@@ -36,6 +36,9 @@ class Interest extends Model
     // Relations
     // --------------------------------------------------------------
 
+    public function Categories() {
+        return $this->hasMany('App\Category');
+    }
 
     // --------------------------------------------------------------
     // Attributes
@@ -43,7 +46,7 @@ class Interest extends Model
 
     public function getImageAttribute()
     {
-        $path='storage/interest/' . $this->id. '.png';
+        $path='storage/topic/' . $this->id. '.png';
         if(!file_exists($path))
             return url('/img/default.png');
 
