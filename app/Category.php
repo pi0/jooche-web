@@ -50,7 +50,7 @@ class Category extends Model
 
     public function getImageAttribute()
     {
-        $path='storage/category/' . $this->id. '.png';
+        $path='storage/category/' . $this->id. '.jpg';
         if(!file_exists($path))
             return url('/img/default.png');
 

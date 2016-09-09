@@ -46,7 +46,7 @@ class Topic extends Model
 
     public function getImageAttribute()
     {
-        $path='storage/topic/' . $this->id. '.png';
+        $path='storage/topic/' . $this->id. '.jpg';
         if(!file_exists($path))
             return url('/img/default.png');
 

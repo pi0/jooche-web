@@ -136,8 +136,8 @@ class SiteController extends Controller
         $category->tags=explode(' ',$this->request->tags);
         $category->save();
 
-        $img = Image::make($this->request->image);
-        $img->save('storage/category/'.$category->id.'.png');
+        $img = Image::make($this->request->image)->resize(200,200);
+        $img->save('storage/category/'.$category->id.'.jpg');
     }
 
 }
