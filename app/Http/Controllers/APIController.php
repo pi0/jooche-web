@@ -6,6 +6,7 @@ use App\Category;
 use App\Interest;
 use App\Shop;
 use App\User;
+use Auth;
 use Hash;
 use Illuminate\Http\Request;
 use Route;
@@ -18,7 +19,7 @@ class APIController extends Controller
 
     public function __construct(Request $request)
     {
-        $this->middleware('auth:api',['except'=>['auth']]);
+        $this->middleware('auth:api', ['except' => ['auth']]);
         $this->request = $request;
     }
 
@@ -42,7 +43,7 @@ class APIController extends Controller
         Route::get('categories', 'ApiController@categories');
 
         // Location
-        Route::get('location/set/:sat/:long', 'ApiController@locationSet');
+        Route::get('location/set/{sat}/{long}', 'ApiController@locationSet');
 
         // Profile
         Route::get('profile', 'ApiController@profile');
@@ -98,8 +99,10 @@ class APIController extends Controller
 
     public function locationSet($lat, $long)
     {
-        // TODO:  update user location
-        return ['set'];
+        $user = Auth::user();
+        $user->setAttribute('location', ['type' => "Point", 'coordinates' => [$lat,$long]]);
+        $user->save();
+        return $user;
     }
 
     // --------------------------------------------------------------
@@ -137,17 +140,17 @@ class APIController extends Controller
         /** @var \App\User $user */
         $user = User::where('email', $credentials['email'])->first();
 
-        if (!$user){
+        if (!$user) {
             // First Login
-            $user=new User();
-            $user->email=$credentials['email'];
-            $user->password=Hash::make($credentials['password']);
-            $user->first_login=true;
+            $user = new User();
+            $user->email = $credentials['email'];
+            $user->password = Hash::make($credentials['password']);
+            $user->first_login = true;
         } else {
             if (!Hash::check($credentials['password'], $user->password))
                 return ['error' => 'credentials error', 'code' => 500];
-            if($user->first_login){
-                $user->first_login=false;
+            if ($user->first_login) {
+                $user->first_login = false;
             }
         }
 
