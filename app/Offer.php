@@ -23,8 +23,7 @@ class Offer extends Model
     // --------------------------------------------------------------
     protected $guarded = [];
     protected $appends = ['image'];
-    protected $visible=['_id',"name","location",'topics'];
-    protected $with=['topics'];
+    protected $visible = ['image','topic_id','name','topic'];
 
     protected static function boot()
     {
@@ -38,8 +37,8 @@ class Offer extends Model
     // Relations
     // --------------------------------------------------------------
 
-    public function topics() {
-        return $this->hasMany('App\Topic');
+    public function topic() {
+        return $this->belongsTo('App\Topic');
     }
 
     // --------------------------------------------------------------
@@ -48,7 +47,7 @@ class Offer extends Model
 
     public function getImageAttribute()
     {
-        $path='storage/shop/' . $this->id. '.jpg';
+        $path='storage/offer/' . $this->id. '.jpg';
         if(!file_exists($path))
             return url('/img/default.png');
         return url($path).'?'.filemtime($path);

@@ -22,6 +22,7 @@ class Topic extends Model
     // Properties
     // --------------------------------------------------------------
     protected $guarded = [];
+    protected $visible = ['_id','name','image'];
     protected $appends = ['image'];
 
     protected static function boot()

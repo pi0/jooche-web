@@ -63,13 +63,17 @@ class APIController extends Controller
 
     public function offers($type)
     {
+        $offers=new Collection(Offer::all()->toArray());
         $r=[];
-        $offers=Offer::all();
-        foreach ($offers as &$offer) {
-            //$x=$offer->toArray();
-            //$x['topics']=
+
+        foreach ($offers->groupBy('topic_id') as $topic_id=>$items) {
+            $topic=Topic::find($topic_id);
+            $x[]=[
+                'topic'=>$topic,
+                'items'=>$items,
+            ];
         }
-        return $offers;
+        return $x;
     }
 
     // --------------------------------------------------------------
