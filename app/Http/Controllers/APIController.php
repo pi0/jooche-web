@@ -4,8 +4,12 @@ namespace App\Http\Controllers;
 
 use App\Category;
 use App\Interest;
+use App\Shop;
+use App\User;
+use Hash;
 use Illuminate\Http\Request;
 use Route;
+use Validator;
 
 class APIController extends Controller
 {
@@ -14,7 +18,7 @@ class APIController extends Controller
 
     public function __construct(Request $request)
     {
-        //$this->middleware('auth:api');
+        $this->middleware('auth:api', ['except' => ['auth']]);
         $this->request = $request;
     }
 
@@ -24,7 +28,6 @@ class APIController extends Controller
 
     public static function routes()
     {
-
         // Offers
         Route::get('offer/{type}', 'ApiController@offers');
 
@@ -46,7 +49,7 @@ class APIController extends Controller
         Route::post('profile', 'ApiController@profilePost');
 
         // Auth
-        Route::post('auth', 'ApiController@auth');
+        Route::any('auth', 'ApiController@auth')->name('auth');
 
     }
 
@@ -60,22 +63,9 @@ class APIController extends Controller
         // TODO: Get Offers Based On User::wishes
         // OR
         // TODO: Get Offers Based On User::interests
-        return [
 
-            [
-                'interest_id' => '123abc',
-                'name' => 'ماشین',
-                'items' => [
-                    [
-                        'offer_id' => '',
-                        'name' => '',
-                        'image' => '',
-                    ]
-                ]
-            ]
+        return Shop::all();
 
-
-        ];
     }
 
     // --------------------------------------------------------------
@@ -109,6 +99,7 @@ class APIController extends Controller
     public function locationSet($lat, $long)
     {
         // TODO:  update user location
+        return ['set'];
     }
 
     // --------------------------------------------------------------
@@ -132,7 +123,36 @@ class APIController extends Controller
 
     public function auth()
     {
-        // TODO
+        // get login credentials
+        $credentials = $this->request->all();
+
+        // create validator
+        $validator = Validator::make($credentials, [
+            'email' => 'required|email',
+            'password' => 'required',
+        ]);
+
+        if ($validator->fails()) return ['error' => 'username & password are required!', 'code' => 500];
+
+        /** @var \App\User $user */
+        $user = User::where('email', $credentials['email'])->first();
+
+        if (!$user){
+            // First Login
+            $user=new User();
+            $user->email=$credentials['email'];
+            $user->password=Hash::make($credentials['password']);
+            $user->first_login=true;
+        } else {
+            if (!Hash::check($credentials['password'], $user->password))
+                return ['error' => 'credentials error', 'code' => 500];
+            if($user->first_login){
+                $user->first_login=false;
+            }
+        }
+
+        $user->save();
+        return $user->token;
     }
 
 }

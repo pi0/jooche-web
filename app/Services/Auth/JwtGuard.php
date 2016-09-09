@@ -1,6 +1,6 @@
 <?php
 
-namespace Chavosh\Services\Auth;
+namespace App\Services\Auth;
 
 
 use Firebase\JWT\JWT;
