@@ -193,6 +193,9 @@ return [
         /* Intervention Image */
         Intervention\Image\ImageServiceProvider::class,
 
+        /* OneSignal */
+        NotificationChannels\OneSignal\OneSignalServiceProvider::class,
+
     ],
 
     /*

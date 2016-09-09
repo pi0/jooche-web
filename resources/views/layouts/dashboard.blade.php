@@ -4,6 +4,7 @@
 <li><a href="{{ route('dashboard.overview') }}">Overview</a></li>
 <li><a href="{{ route('dashboard.topics') }}">Topics</a></li>
 <li><a href="{{ route('dashboard.categories') }}">Categories</a></li>
+<li><a href="{{ route('dashboard.offers') }}">Offers</a></li>
 @endpush
 
 @section('content')

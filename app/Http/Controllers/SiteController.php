@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Category;
+use App\Offer;
 use App\Topic;
 use Illuminate\Http\Request;
 use Intervention\Image\Facades\Image;
@@ -46,6 +47,13 @@ class SiteController extends Controller
         Route::delete('/dashboard/categories/{category}', 'SiteController@categoriesDelete');
         Route::post('/dashboard/categories/{category}', 'SiteController@categoriesPost');
 
+        // offers
+        Route::get('/dashboard/offers', 'SiteController@offers')->name('dashboard.offers');
+        Route::put('/dashboard/offers', 'SiteController@offersPut');
+        Route::delete('/dashboard/offers/{offer}', 'SiteController@offersDelete');
+        Route::post('/dashboard/offers/{offers}', 'SiteController@offersPost');
+
+
     }
 
     // --------------------------------------------------------------
@@ -63,13 +71,13 @@ class SiteController extends Controller
 
     public function overview()
     {
-        $topics=Topic::all();
-        $chart=[];
-        foreach ($topics as $topic){
-            $chart[$topic->name]=$topic->categories->count();
+        $topics = Topic::all();
+        $chart = [];
+        foreach ($topics as $topic) {
+            $chart[$topic->name] = $topic->categories->count();
         }
 
-        return view('dashboard.overview',compact('chart'));
+        return view('dashboard.overview', compact('chart'));
     }
 
     // --------------------------------------------------------------
@@ -100,13 +108,48 @@ class SiteController extends Controller
 
     public function topicsPost(Topic $topic)
     {
-        $topic->name=$this->request->name;
+        $topic->name = $this->request->name;
         $topic->save();
 
         $img = Image::make($this->request->image);
-        $img->save('storage/topic/'.$topic->id.'.jpg');
+        $img->save('storage/topic/' . $topic->id . '.jpg');
     }
 
+    // --------------------------------------------------------------
+    // Dashboard::Offers
+    // --------------------------------------------------------------
+
+    public function offers()
+    {
+        if ($this->request->wantsJson()) {
+            $offers = Offer::all();
+            return $offers;
+        }
+
+        return view('dashboard.offers');
+    }
+
+    public function offersPut()
+    {
+        $offer = new Offer();
+        $offer->name = 'بدون عنوان';
+        $offer->save();
+    }
+
+    public function offersDelete(Offer $offer)
+    {
+        $offer->delete();
+    }
+
+    public function offersPost(Offer $offer)
+    {
+        $offer->name = $this->request->name;
+        $offer->topic_id = new ObjectId($this->request->topic_id);
+        $offer->save();
+
+        $img = Image::make($this->request->image);
+        $img->save('storage/offer/' . $offer->id . '.jpg');
+    }
 
 
     // --------------------------------------------------------------
@@ -125,7 +168,7 @@ class SiteController extends Controller
 
     public function categoriesPut()
     {
-        $category=new Category();
+        $category = new Category();
         $category->name = 'عنوان دسته بندی';
         $category->save();
     }
@@ -137,13 +180,13 @@ class SiteController extends Controller
 
     public function categoriesPost(Category $category)
     {
-        $category->name=$this->request->name;
-        $category->topic_id=new ObjectId($this->request->topic_id);
-        $category->tags=explode(' ',$this->request->tags);
+        $category->name = $this->request->name;
+        $category->topic_id = new ObjectId($this->request->topic_id);
+        $category->tags = explode(' ', $this->request->tags);
         $category->save();
 
         $img = Image::make($this->request->image);
-        $img->save('storage/category/'.$category->id.'.jpg');
+        $img->save('storage/category/' . $category->id . '.jpg');
     }
 
 }

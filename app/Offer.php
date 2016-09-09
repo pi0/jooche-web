@@ -23,7 +23,7 @@ class Offer extends Model
     // --------------------------------------------------------------
     protected $guarded = [];
     protected $appends = ['image'];
-    protected $visible = ['image','topic_id','name','topic'];
+    protected $visible = ['image','topic_id','name','topic',"_id"];
 
     protected static function boot()
     {
