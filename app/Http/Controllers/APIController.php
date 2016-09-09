@@ -18,7 +18,7 @@ class APIController extends Controller
 
     public function __construct(Request $request)
     {
-        $this->middleware('auth:api', ['except' => ['auth']]);
+        $this->middleware('auth:api',['except'=>['auth']]);
         $this->request = $request;
     }
 
@@ -64,7 +64,7 @@ class APIController extends Controller
         // OR
         // TODO: Get Offers Based On User::interests
 
-        return Shop::all();
+        return Shop::all()->get();
 
     }
 
@@ -88,7 +88,7 @@ class APIController extends Controller
 
     public function categories()
     {
-        return Category::all();
+        return Category::all()->get();
     }
 
 
