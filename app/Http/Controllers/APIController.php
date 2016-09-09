@@ -32,7 +32,7 @@ class APIController extends Controller
     public static function routes()
     {
         // Offers
-        Route::get('offer/{type}', 'ApiController@offers');
+        Route::get('offers/{type}', 'ApiController@offers');
 
         // Topics
         Route::get('topics', 'ApiController@topics');
