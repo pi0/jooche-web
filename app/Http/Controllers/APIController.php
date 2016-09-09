@@ -63,17 +63,20 @@ class APIController extends Controller
 
     public function offers($type)
     {
-        $offers=new Collection(Offer::all()->toArray());
-        $r=[];
-
-        foreach ($offers->groupBy('topic_id') as $topic_id=>$items) {
-            $topic=Topic::find($topic_id);
-            $x[]=[
-                'topic'=>$topic,
-                'items'=>$items,
-            ];
+        switch ($type) {
+            case 'topic':
+                $offers = new Collection(Offer::all()->toArray());
+                $r = [];
+                foreach ($offers->groupBy('topic_id') as $topic_id => $items) {
+                    $topic = Topic::find($topic_id);
+                    $r[] = ['topic' => $topic,
+                        'items' => $items,];
+                }
+                return $r;
+            case 'wish':
+            default:
+                return Offer::all();
         }
-        return $x;
     }
 
     // --------------------------------------------------------------
@@ -82,11 +85,11 @@ class APIController extends Controller
 
     public function topics()
     {
-        $interests= Topic::all();
+        $interests = Topic::all();
         $user = Auth::user();
-        $ids=$user->topic_ids?:[];
-        foreach ($interests as &$interest){
-            $interest['enabled']=in_array($interest->id,$ids);
+        $ids = $user->topic_ids ?: [];
+        foreach ($interests as &$interest) {
+            $interest['enabled'] = in_array($interest->id, $ids);
         }
 
         return $interests;
@@ -96,13 +99,13 @@ class APIController extends Controller
     {
         $user = Auth::user();
 
-        $push=$this->request->json('push',[]);
+        $push = $this->request->json('push', []);
         foreach ($push as $id)
-            $user->push('topic_ids',$push,true);
+            $user->push('topic_ids', $push, true);
 
-        $pull=$this->request->json('pull',[]);
+        $pull = $this->request->json('pull', []);
         foreach ($pull as $id)
-            $user->pull('topic_ids',$pull);
+            $user->pull('topic_ids', $pull);
     }
 
     // --------------------------------------------------------------
@@ -122,7 +125,7 @@ class APIController extends Controller
     public function locationSet($lat, $long)
     {
         $user = Auth::user();
-        $user->setAttribute('location', ['type' => "Point", 'coordinates' => [$lat,$long]]);
+        $user->setAttribute('location', ['type' => "Point", 'coordinates' => [$lat, $long]]);
         $user->save();
         return $user;
     }
