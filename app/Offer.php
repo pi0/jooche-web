@@ -16,13 +16,15 @@ use Moloquent\Eloquent\Model as Model;
 /**
  * @property string name
  */
-class Shop extends Model
+class Offer extends Model
 {
     // --------------------------------------------------------------
     // Properties
     // --------------------------------------------------------------
     protected $guarded = [];
     protected $appends = ['image'];
+    protected $visible=['_id',"name","location",'topics'];
+    protected $with=['topics'];
 
     protected static function boot()
     {
@@ -36,6 +38,9 @@ class Shop extends Model
     // Relations
     // --------------------------------------------------------------
 
+    public function topics() {
+        return $this->hasMany('App\Topic');
+    }
 
     // --------------------------------------------------------------
     // Attributes

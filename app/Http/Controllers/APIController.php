@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Category;
 use App\Interest;
+use App\Offer;
 use App\Shop;
 use App\Topic;
 use App\User;
@@ -62,7 +63,13 @@ class APIController extends Controller
 
     public function offers($type)
     {
-        return Shop::all();
+        $r=[];
+        $offers=Offer::all();
+        foreach ($offers as &$offer) {
+            //$x=$offer->toArray();
+            //$x['topics']=
+        }
+        return $offers;
     }
 
     // --------------------------------------------------------------
