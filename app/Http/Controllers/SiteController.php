@@ -97,7 +97,7 @@ class SiteController extends Controller
         $topic->name=$this->request->name;
         $topic->save();
 
-        $img = Image::make($this->request->image);
+        $img = Image::make($this->request->image)->resize(256,256);
         $img->save('storage/topic/'.$topic->id.'.jpg');
     }
 
@@ -136,7 +136,7 @@ class SiteController extends Controller
         $category->tags=explode(' ',$this->request->tags);
         $category->save();
 
-        $img = Image::make($this->request->image)->resize(200,200);
+        $img = Image::make($this->request->image)->resize(256,256);
         $img->save('storage/category/'.$category->id.'.jpg');
     }
 
