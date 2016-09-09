@@ -2,6 +2,9 @@ const elixir = require('laravel-elixir');
 
 require('laravel-elixir-vue');
 
+process.env.DISABLE_NOTIFIER = true;
+
+
 /*
  |--------------------------------------------------------------------------
  | Elixir Asset Management
@@ -14,6 +17,6 @@ require('laravel-elixir-vue');
  */
 
 elixir(mix => {
-    mix.sass('app.scss')
-       .webpack('app.js');
+    mix.sass('app.scss');
+    mix.webpack('app.js');
 });

@@ -16,61 +16,48 @@ class APIController extends Controller
         $this->request = $request;
     }
 
+    // --------------------------------------------------------------
+    // Routes
+    // --------------------------------------------------------------
+
     public static function routes()
     {
-        Route::get('test', 'ApiController@test');
+
+        // Offers
+        Route::get('offer/{type}', 'ApiController@offers');
 
         // Interests
         Route::get('interests', 'ApiController@interests');
-        Route::post('interestsPost', 'ApiController@interestsPost');
+        Route::post('interests', 'ApiController@interestsPost');
 
-        // Wish
-        Route::get('wish', 'ApiController@wish');
-        Route::get('wish/{cat_id}', 'ApiController@wishDetails');
+        // Wishes
         Route::post('wish', 'ApiController@wishPost');
 
+        // Categories
+        Route::get('categories', 'ApiController@categories');
+
+        // Location
+        Route::get('location/set/:sat/:long', 'ApiController@locationSet');
 
         // Profile
         Route::get('profile', 'ApiController@profile');
         Route::post('profile', 'ApiController@profilePost');
 
-        // auth
-        Route::post('auth', 'ApiController@login');
-
-        // location
-        Route::get('location', 'ApiController@location');
-
-        // Offers
-        Route::get('offers', 'ApiController@offers');
-
+        // Auth
+        Route::post('auth', 'ApiController@auth');
 
     }
 
-    public function interests()
+    // --------------------------------------------------------------
+    // Offers
+    // --------------------------------------------------------------
+
+    public function offers($type)
     {
 
-        return [
-
-            [
-                '_id' => '29fba1333aab',
-                'name' => 'موبایل و تبلت',
-                'icon' => 'http://icon73',
-                'enabled' => true,
-            ],
-            [
-                '_id' => '29fba1333aab',
-                'name' => 'سلامت و زیبایی',
-                'icon' => 'http://icon73',
-                'enabled' => true,
-            ],
-
-        ];
-
-
-    }
-
-    public function feed()
-    {
+        // TODO: Get Offers Based On User::wishes
+        // OR
+        // TODO: Get Offers Based On User::interests
         return [
 
             [
@@ -89,7 +76,41 @@ class APIController extends Controller
         ];
     }
 
-    public function wish()
+    // --------------------------------------------------------------
+    // Interests
+    // --------------------------------------------------------------
+
+    public function interests()
+    {
+        // TODO: List All Available Interests And Merge With Enabled Flag Based On Current User
+
+        return [
+            [
+                '_id' => '29fba1333aab',
+                'name' => 'موبایل و تبلت',
+                'image' => 'http://icon73',
+                'enabled' => true,
+            ],
+            [
+                '_id' => '29fba1333aab',
+                'name' => 'سلامت و زیبایی',
+                'image' => 'http://icon73',
+                'enabled' => true,
+            ],
+
+        ];
+    }
+
+    public function interestsPost()
+    {
+        // TODO: { push:[interest_ids], pull:[interest_ids] }
+    }
+
+    // --------------------------------------------------------------
+    // Categories
+    // --------------------------------------------------------------
+
+    public function categories()
     {
         return [
             [
@@ -98,69 +119,45 @@ class APIController extends Controller
                     [
                         'cat_id' => '123',
                         'name' => 'موس و کی بورد',
+                        'tags' => ['آبی', 'سبز'],
                     ]
                 ]
-
             ]
         ];
     }
 
-    public function wishDetails($cadId)
+
+    // --------------------------------------------------------------
+    // Location
+    // --------------------------------------------------------------
+
+    public function locationSet($lat, $long)
     {
-        return [
-            'tags' => ['آبی', 'سبز'],
-        ];
+        // TODO:  update user location
     }
 
-    public function interestsPost()
-    {
-
-        return ['error' => 'implement me!'];
-
-    }
-
-    public function login()
-    {
-
-    }
+    // --------------------------------------------------------------
+    // Profile
+    // --------------------------------------------------------------
 
     public function profile()
     {
-
+        // TODO: return user profile
     }
 
-    public function offers()
-    {
-
-        return [
-            [
-                '_id' => 'foo',
-                'name' => '',
-                'image' => '',
-            ],
-            [
-                '_id' => 'bar',
-                'name' => '',
-                'image' => '',
-            ],
-        ];
-
-    }
 
     public function profilePost()
     {
-
+        // TODO: update user profile
     }
 
-    public function location()
+    // --------------------------------------------------------------
+    // Auth
+    // --------------------------------------------------------------
+
+    public function auth()
     {
-
+        // TODO
     }
-
-    public function test()
-    {
-        return ['foo' => 'bar'];
-    }
-
 
 }

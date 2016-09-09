@@ -11,6 +11,8 @@
         <link href="https://fonts.googleapis.com/css?family=Raleway:100,600" rel="stylesheet" type="text/css">
 
         <!-- Styles -->
+        <link href="/css/app.css" rel="stylesheet">
+
         <style>
             html, body {
                 background-color: #fff;
@@ -62,6 +64,18 @@
             .m-b-md {
                 margin-bottom: 30px;
             }
+
+            .button {
+                background-color: #4CAF50; /* Green */
+                border: none;
+                color: white !important;
+                padding: 15px 32px;
+                text-align: center;
+                text-decoration: none !important;
+                display: inline-block;
+                font-size: 16px;
+            }
+
         </style>
     </head>
     <body dir="rtl">
@@ -72,7 +86,7 @@
                     <span>Jooche</span>
                 </div>
                 <div>
-                    <span>با جوچه بجویید چه می خواهید :)</span>
+                    <a class="button" href="{{route('dashboard.overview')}}">Login to Dashboard</a>
                 </div>
             </div>
         </div>
