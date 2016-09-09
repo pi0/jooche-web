@@ -37,4 +37,10 @@ class User extends Model implements
     protected $hidden = [
         'password', 'remember_token',
     ];
+
+
+    public function interests() {
+        return $this->hasMany('App\Interest');
+    }
+
 }

@@ -9,6 +9,7 @@ use App\User;
 use Auth;
 use Hash;
 use Illuminate\Http\Request;
+use Illuminate\Support\Collection;
 use Route;
 use Validator;
 
@@ -66,7 +67,6 @@ class APIController extends Controller
         // TODO: Get Offers Based On User::interests
 
         return Shop::all();
-
     }
 
     // --------------------------------------------------------------
@@ -75,12 +75,27 @@ class APIController extends Controller
 
     public function interests()
     {
-        return Interest::all();
+        $interests= Interest::all();
+        $user = Auth::user();
+        $ids=$user->interest_ids?:[];
+        foreach ($interests as &$interest){
+            $interest['enabled']=in_array($interest->id,$ids);
+        }
+
+        return $interests;
     }
 
     public function interestsPost()
     {
-        // TODO: { push:[interest_ids], pull:[interest_ids] }
+        $user = Auth::user();
+
+        $push=$this->request->json('push',[]);
+        foreach ($push as $id)
+            $user->push('interest_ids',$push,true);
+
+        $pull=$this->request->json('pull',[]);
+        foreach ($pull as $id)
+            $user->pull('interest_ids',$pull);
     }
 
     // --------------------------------------------------------------
