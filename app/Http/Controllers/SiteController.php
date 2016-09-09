@@ -93,6 +93,7 @@ class SiteController extends Controller
     public function interestsPost(Interest $interest)
     {
         $interest->name=$this->request->name;
+        $interest->image=$this->request->image;
         $interest->save();
     }
 
@@ -130,6 +131,7 @@ class SiteController extends Controller
         $category->name=$this->request->name;
         $category->topic=$this->request->topic;
         $category->tags=explode(' ',$this->request->tags);
+        $category->image=$this->request->image;
         $category->save();
     }
 

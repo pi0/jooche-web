@@ -24,7 +24,7 @@ class Category extends Model
     // Properties
     // --------------------------------------------------------------
     protected $guarded = [];
-    protected $appends = [];
+    protected $appends = ['image'];
 
     protected static function boot()
     {
@@ -47,4 +47,8 @@ class Category extends Model
         return join(' ',$tags);
     }
 
+    public function getImageAttribute()
+    {
+        return url('storage/category/' . $this->id . '/.png');
+    }
 }

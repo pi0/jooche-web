@@ -22,7 +22,7 @@ class Interest extends Model
     // Properties
     // --------------------------------------------------------------
     protected $guarded = [];
-    protected $appends = [];
+    protected $appends = ['image'];
 
     protected static function boot()
     {
@@ -41,5 +41,9 @@ class Interest extends Model
     // Attributes
     // --------------------------------------------------------------
 
+    public function getImageAttribute()
+    {
+        return url('storage/interest/' . $this->id . '/.png');
+    }
 
 }

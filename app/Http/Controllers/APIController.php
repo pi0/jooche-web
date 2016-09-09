@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers;
 
+use App\Category;
+use App\Interest;
 use Illuminate\Http\Request;
 use Route;
 
@@ -82,23 +84,7 @@ class APIController extends Controller
 
     public function interests()
     {
-        // TODO: List All Available Interests And Merge With Enabled Flag Based On Current User
-
-        return [
-            [
-                '_id' => '29fba1333aab',
-                'name' => 'موبایل و تبلت',
-                'image' => 'http://icon73',
-                'enabled' => true,
-            ],
-            [
-                '_id' => '29fba1333aab',
-                'name' => 'سلامت و زیبایی',
-                'image' => 'http://icon73',
-                'enabled' => true,
-            ],
-
-        ];
+        return Interest::all();
     }
 
     public function interestsPost()
@@ -112,18 +98,7 @@ class APIController extends Controller
 
     public function categories()
     {
-        return [
-            [
-                'name' => 'ابزار کامپیوتر',
-                'items' => [
-                    [
-                        'cat_id' => '123',
-                        'name' => 'موس و کی بورد',
-                        'tags' => ['آبی', 'سبز'],
-                    ]
-                ]
-            ]
-        ];
+        return Category::all();
     }
 
 

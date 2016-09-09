@@ -17,7 +17,8 @@
     "sentry/sentry-laravel": "^0.3.0",
     "barryvdh/laravel-ide-helper": "^2.2",
     "moloquent/moloquent": "dev-master",
-    "laravel/passport":"^1.0.0"
+    "laravel/passport":"^1.0.0",
+    "intervention/image": "^2.3"
   },
   "require-dev": {
     "fzaninotto/faker": "~1.4",
