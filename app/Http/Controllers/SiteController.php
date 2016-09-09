@@ -98,7 +98,7 @@ class SiteController extends Controller
         $topic->save();
 
         $img = Image::make($this->request->image);
-        $img->save('storage/topic/'.$topic->id.'.png');
+        $img->save('storage/topic/'.$topic->id.'.jpg');
     }
 
 
