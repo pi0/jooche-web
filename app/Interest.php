@@ -43,7 +43,11 @@ class Interest extends Model
 
     public function getImageAttribute()
     {
-        return url('storage/interest/' . $this->id . '.png');
+        $path='storage/interest/' . $this->id. '.png';
+        if(!file_exists($path))
+            return url('/img/default.png');
+
+        return url($path).'?'.filemtime($path);
     }
 
 }

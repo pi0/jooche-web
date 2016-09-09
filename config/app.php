@@ -190,8 +190,8 @@ return [
         Moloquent\MongodbServiceProvider::class,
         Moloquent\Auth\PasswordResetServiceProvider::class,
 
-
-
+        /* Intervention Image */
+        Intervention\Image\ImageServiceProvider::class,
 
     ],
 

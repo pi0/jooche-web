@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Category;
 use App\Interest;
 use Illuminate\Http\Request;
+use Intervention\Image\Facades\Image;
 use Route;
 
 class SiteController extends Controller
@@ -93,8 +94,10 @@ class SiteController extends Controller
     public function interestsPost(Interest $interest)
     {
         $interest->name=$this->request->name;
-        $interest->image=$this->request->image;
         $interest->save();
+
+        $img = Image::make($this->request->image);
+        $img->save('storage/interest/'.$interest->id.'.png');
     }
 
 
@@ -131,8 +134,10 @@ class SiteController extends Controller
         $category->name=$this->request->name;
         $category->topic=$this->request->topic;
         $category->tags=explode(' ',$this->request->tags);
-        $category->image=$this->request->image;
         $category->save();
+
+        $img = Image::make($this->request->image);
+        $img->save('storage/category/'.$category->id.'.png');
     }
 
 }

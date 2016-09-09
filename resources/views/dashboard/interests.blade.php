@@ -12,14 +12,16 @@
             <th>Actions</th>
         </tr>
         <tr v-for="item in interests">
-            <td>@{{item._id}}</td>
+            <td>
+                <label class="">
+                    <img class="img-responsive" v-bind:src="item.image">
+                    <input type="file" @change="save(item,this)" style="display: none" id="@{{'img_'+item._id}}">
+                </label>
+            </td>
             <td>
                 <input v-model="item.name" @change="save(item)" class="form-control">
             </td>
             <td>
-                <label class="btn btn-info btn-file btn-sm">
-                    ... <input type="file" @change="save(item,this)" style="display: none" id="@{{'img_'+item._id}}">
-                </label>
                 <span class="btn btn-sm btn-danger" @click='remove(item._id)'>x</span>
             </td>
         </tr>

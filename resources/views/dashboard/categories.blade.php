@@ -7,14 +7,19 @@
 @section('body')
     <table class="table table-responsive">
         <tr>
-            <th>ID</th>
+            <th></th>
             <th>Name</th>
             <th>Topic</th>
             <th>Tags</th>
             <th>Actions</th>
         </tr>
         <tr v-for="item in categories">
-            <td>@{{item._id}}</td>
+            <td>
+                <label>
+                    <img class="img-responsive" v-bind:src="item.image" style="max-width: 100px;display: inline">
+                    <input type="file" @change="save(item,this)" style="display: none" id="@{{'img_'+item._id}}">
+                </label>
+            </td>
             <td>
                 <input v-model="item.name" @change="save(item)" class="form-control">
             </td>
@@ -74,9 +79,25 @@
                 });
             },
             save: function (item) {
-                this.$http.post(url + '/' + item._id, item).then(function (r) {
-                    this.reload();
-                });
+                var _this=this;
+                var post = function () {
+                    _this.$http.post(url + '/' + item._id, item).then(function (r) {
+                        _this.reload();
+                    });
+                };
+
+                img = $('#img_' + item._id)[0].files[0];
+                if (img != null) {
+                    var reader = new FileReader();
+                    reader.readAsDataURL(img);
+                    reader.onload = function (e) {
+                        item.image = e.target.result;
+                        post();
+                    };
+                } else {
+                    post();
+                }
+
             }
         }
 
