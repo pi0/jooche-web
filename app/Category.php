@@ -49,6 +49,6 @@ class Category extends Model
 
     public function getImageAttribute()
     {
-        return url('storage/category/' . $this->id . '/.png');
+        return url('storage/category/' . $this->id . '.png');
     }
 }

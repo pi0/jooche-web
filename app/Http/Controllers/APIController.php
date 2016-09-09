@@ -64,7 +64,7 @@ class APIController extends Controller
         // OR
         // TODO: Get Offers Based On User::interests
 
-        return Shop::all()->get();
+        return Shop::all();
 
     }
 
@@ -88,7 +88,7 @@ class APIController extends Controller
 
     public function categories()
     {
-        return Category::all()->get();
+        return Category::all();
     }
 
 
