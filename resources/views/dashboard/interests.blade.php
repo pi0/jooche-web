@@ -14,7 +14,7 @@
         <tr v-for="item in interests">
             <td>
                 <label class="">
-                    <img class="img-responsive" v-bind:src="item.image">
+                    <img class="img-responsive" v-bind:src="item.image" style="max-width: 100px;display: inline">
                     <input type="file" @change="save(item,this)" style="display: none" id="@{{'img_'+item._id}}">
                 </label>
             </td>
