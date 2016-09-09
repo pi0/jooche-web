@@ -21,7 +21,7 @@ class APIController extends Controller
 
     public function __construct(Request $request)
     {
-        //$this->middleware('auth:api', ['except' => ['auth']]);
+        $this->middleware('auth:api', ['except' => ['auth']]);
         $this->request = $request;
     }
 
@@ -78,8 +78,7 @@ class APIController extends Controller
     {
         $interests= Topic::all();
         $user = Auth::user();
-        //$ids=$user->topic_ids?:[];
-        $ids=[];
+        $ids=$user->topic_ids?:[];
         foreach ($interests as &$interest){
             $interest['enabled']=in_array($interest->id,$ids);
         }
