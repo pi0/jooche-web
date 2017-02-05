@@ -12,7 +12,7 @@ return [
     | any other location as required by the application or its packages.
     */
 
-    'name' => 'Jooche Application',
+    'name' => 'Jooche',
 
     /*
     |--------------------------------------------------------------------------
@@ -190,8 +190,11 @@ return [
         Moloquent\MongodbServiceProvider::class,
         Moloquent\Auth\PasswordResetServiceProvider::class,
 
+        /* Intervention Image */
+        Intervention\Image\ImageServiceProvider::class,
 
-
+        /* OneSignal */
+        NotificationChannels\OneSignal\OneSignalServiceProvider::class,
 
     ],
 

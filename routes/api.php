@@ -13,4 +13,4 @@ use Illuminate\Http\Request;
 |
 */
 
-\App\Http\Controllers\ApiController::routes();
+\App\Http\Controllers\APIController::routes();

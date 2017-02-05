@@ -8,10 +8,13 @@
     <!-- CSRF Token -->
     <meta name="csrf-token" content="{{ csrf_token() }}">
 
-    <title>{{ config('app.name', 'Laravel') }}</title>
+    <title>{{ config('app.name') }}</title>
 
     <!-- Styles -->
     <link href="/css/app.css" rel="stylesheet">
+    <link href="/tagsinput/bootstrap-tagsinput.css" rel="stylesheet">
+
+    @stack('styles')
 
     <!-- Scripts -->
     <script>
@@ -42,7 +45,7 @@
             <div class="collapse navbar-collapse" id="app-navbar-collapse">
                 <!-- Left Side Of Navbar -->
                 <ul class="nav navbar-nav">
-                    &nbsp;
+                    @stack('nav')
                 </ul>
 
                 <!-- Right Side Of Navbar -->
@@ -79,7 +82,9 @@
 
     @yield('content')
 
-    <!-- Scripts -->
     <script src="/js/app.js"></script>
+    <script src="/tagsinput/bootstrap-tagsinput.min.js"></script>
+    @stack('scripts')
+
 </body>
 </html>
